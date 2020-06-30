@@ -17,7 +17,6 @@ public class DistanceUtils {
      * else false
      */
     public boolean isWithinRadius(double latitude, double longitude) {
-        logger.info("Testing log");
         double distance = 0.0;
         try {
             double deltaLongitude = Math.toRadians(AppConstants.INTERCOM_OFFICE_LONGITUDE - longitude);

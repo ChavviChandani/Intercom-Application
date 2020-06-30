@@ -26,9 +26,9 @@ public class IntercomApp {
 
     public void doTask() {
         // Reading text file from the given url
-        BufferedReader bufferedReader = new NetworkUtils().getUrlContent(AppConstants.CUSTOMER_URL);
+        String data = new NetworkUtils().getUrlContent(AppConstants.CUSTOMER_URL);
         // Extracting the user information using Json parser and storing it in a List of UserModel
-        List<UserModel> guestList = new JsonParserUtils().getGuestList(bufferedReader);
+        List<UserModel> guestList = new JsonParserUtils().getGuestList(data);
         // Sorting the guestList by UserId
         guestList.sort(Comparator.comparingInt(UserModel::getUserId));
         // Stored list is stored as csv file

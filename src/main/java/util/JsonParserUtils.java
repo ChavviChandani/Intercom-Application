@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO : Fix bufferedReader Parameter
-
 /**
  * JsonParserUtils class consists of a method that returns a UserModel List of users who stay
  * within 100km radius of Intercom Office
@@ -24,16 +22,16 @@ public class JsonParserUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JsonParserUtils.class);
 
-    public List<UserModel> getGuestList(BufferedReader bufferedReader) {
+    public List<UserModel> getGuestList(String data) {
         // List of UserModel to store guests
         List<UserModel> guestList = new ArrayList<>();
-        if (bufferedReader == null) {
+        if (data == null) {
             return guestList;
         }
         DistanceUtils distanceUtils = new DistanceUtils();
         try {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
+            String[] jsonStringList = data.split(System.lineSeparator());
+            for (String line : jsonStringList) {
                 // Parse the Json data as Json Object
                 JsonObject jsonObject = JsonParser.parseString(line).getAsJsonObject();
                 // Check if the latitude and longitude of the user is within 100km radius of Intercom Dublin Office
@@ -48,14 +46,8 @@ public class JsonParserUtils {
                     guestList.add(userModel);
                 }
             }
-        } catch (JsonParseException | IOException e) {
+        } catch (JsonParseException e) {
             logger.error("Error occurred in getGuestList :" + e.getMessage());
-        } finally {
-            try {
-                bufferedReader.close();
-            } catch (IOException e) {
-                logger.error("Error occurred while closing the buffered reader in getGuestList :" + e.getMessage());
-            }
         }
         return guestList;
     }
