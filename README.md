@@ -12,7 +12,7 @@ To install and execute on windows :
 To test on windows :
 ###### mvnw.cmd test
 
-####Instructions to install and execute for Mac:
+#### Instructions to install and execute for Mac:
 To install and execute on Mac : 
 ###### ./mvnw clean compile exec:java
 
